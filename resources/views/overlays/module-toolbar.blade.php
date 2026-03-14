@@ -1,6 +1,6 @@
 @if (app(\MakeDev\MakeDev\Support\ModuleOptions::class)->showSkills())
     <div @class([
-        'flex items-center gap-1 z-50',
+        'flex items-center gap-1 z-50 pointer-events-auto',
         'fixed top-4 right-4' => ($overlayPosition ?? 'fixed') === 'fixed',
         'absolute top-2 right-2' => ($overlayPosition ?? 'fixed') === 'inline',
     ])>

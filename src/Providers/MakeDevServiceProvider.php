@@ -76,19 +76,32 @@ class MakeDevServiceProvider extends ServiceProvider
             }
 
             $needsRelative = $overlayPosition === 'inline';
+            $skillsActive = app(ModuleOptions::class)->showSkills();
 
-            return function ($html) use ($renderedOverlays, $needsRelative) {
+            return function ($html) use ($renderedOverlays, $needsRelative, $skillsActive) {
+                $classesToAdd = [];
+
                 if ($needsRelative) {
+                    $classesToAdd[] = 'relative';
+                }
+
+                if ($skillsActive) {
+                    $classesToAdd[] = 'pointer-events-none';
+                }
+
+                if ($classesToAdd !== []) {
+                    $classes = implode(' ', $classesToAdd);
+
                     $html = preg_replace(
                         '/^(<\w+\s[^>]*class=")/s',
-                        '$1relative ',
+                        '$1'.$classes.' ',
                         $html,
                         1,
                         $count,
                     );
 
                     if ($count === 0) {
-                        $html = preg_replace('/^(<\w+)/s', '$1 class="relative"', $html, 1);
+                        $html = preg_replace('/^(<\w+)/s', '$1 class="'.$classes.'"', $html, 1);
                     }
                 }
 
