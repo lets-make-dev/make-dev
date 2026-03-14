@@ -2,8 +2,6 @@
 
 namespace MakeDev\MakeDev\Skills;
 
-use Modules\ModuleLoader\Support\DynamicModuleResolver;
-
 class PowerOff extends ModuleSkill
 {
     public function view(): string
@@ -18,6 +16,10 @@ class PowerOff extends ModuleSkill
 
     public function isEnabled(): bool
     {
-        return app(DynamicModuleResolver::class)->modules() !== [];
+        if (! class_exists(\Modules\ModuleLoader\Support\DynamicModuleResolver::class)) {
+            return false;
+        }
+
+        return app(\Modules\ModuleLoader\Support\DynamicModuleResolver::class)->modules() !== [];
     }
 }

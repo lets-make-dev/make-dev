@@ -1,4 +1,4 @@
-@if (app(\Modules\ModuleLoader\Support\DynamicModuleResolver::class)->modules() !== [])
+@if (class_exists(\Modules\ModuleLoader\Support\DynamicModuleResolver::class) && app(\Modules\ModuleLoader\Support\DynamicModuleResolver::class)->modules() !== [])
     <button
         x-on:click="Livewire.dispatch('module-loader:power-off')"
         class="flex h-10 w-10 items-center justify-center rounded-full bg-black/5 text-black/30 backdrop-blur-sm transition hover:bg-black/10 hover:text-black/80"
